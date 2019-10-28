@@ -10,15 +10,9 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Open the map and type where you want to go
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+You will be shown the direction by foot
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
