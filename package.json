@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^3.3.2",
+    "leaflet": "^1.5.1",
+    "leaflet-routing-machine": "^3.2.12",
     "shpjs": "^3.4.3",
     "vue": "^2.6.10"
   },

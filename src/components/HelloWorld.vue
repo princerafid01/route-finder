@@ -1,58 +1,147 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
+    <div id="hello"></div>
 </template>
 
 <script>
+import shp from "shpjs";
+import L from "leaflet";
+import data from "./data";
+import slum from "./slum.json";
+import 'leaflet-routing-machine';
+
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
+    name: "HelloWorld",
+    data: function() {
+        return {
+            s: "",
+            mapData: {
+                type: "FeatureCollection",
+                features: [
+                    {
+                        type: "Feature",
+                        properties: {},
+                        geometry: {
+                            type: "Point",
+                            coordinates: [90.41012048721313, 23.75251074332713]
+                        }
+                    },
+                    {
+                        type: "Feature",
+                        properties: {},
+                        geometry: {
+                            type: "Point",
+                            coordinates: [90.40949821472168, 23.754297977874888]
+                        }
+                    },
+                    {
+                        type: "Feature",
+                        properties: {},
+                        geometry: {
+                            type: "Point",
+                            coordinates: [90.40196657180786, 23.74815057370012]
+                        }
+                    },
+                    {
+                        type: "Feature",
+                        properties: {},
+                        geometry: {
+                            type: "Point",
+                            coordinates: [90.41338205337524, 23.74322065652415]
+                        }
+                    },
+                    {
+                        type: "Feature",
+                        properties: {},
+                        geometry: {
+                            type: "LineString",
+                            coordinates: [
+                                [90.40949821472168, 23.75451401555371],
+                                [90.4021167755127, 23.748543387758623],
+                                [90.4136610031128, 23.743593844033676],
+                                [90.4103136062622, 23.752667863831423],
+                                [90.40932655334473, 23.754592574620776]
+                            ]
+                        }
+                    }
+                ]
+            }
+        };
+    },
+    props: {
+        msg: String
+    },
+    mounted() {
+        this.$nextTick(function() {
+            // var mymap = L.map("hello").setView([23.777176, 90.399452], 11); // initialize map
+            // L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            //     attribution:
+            //         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            // }).addTo(mymap); // add tile
+            // L.Routing.control({
+            // waypoints: [
+            //     L.latLng(90.4103136062622, 23.752667863831423),
+            //     L.latLng(90.40932655334473, 23.754592574620776)
+            // ]
+            // }).addTo(mymap);
+
+            // var tear = new L.Icon({
+            //     iconUrl: "../logo.png"
+            // });
+            // L.marker([23.777176, 	90.399452]).addTo(mymap).bindPopup('A pretty CSS3 popup.<br> Easily customizable.'); //add marker
+            // L.geoJSON(data.responseJSON, {
+            //   onEachFeature: function(feature, layer){
+            //     layer.bindPopup('Slum');
+            //     layer.setIcon(tear);
+            //   }
+            // }).addTo(mymap);
+            // L.geoJSON(this.mapData, {
+            //     style: function(feature) {
+            //         return {
+            //             color: "#000"
+            //         };
+			// 	}
+            // }).addTo(mymap);
+            navigator.geolocation.getCurrentPosition(function(location) {
+                let lat = location.coords.latitude;
+                let lng = location.coords.longitude;
+
+            var map = L.map('hello').setView([23.777176, 90.399452], 11);;
+
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            L.Routing.control({
+                waypoints: [
+                    L.latLng(lat,lng),
+                    L.latLng(23.754592574620776, 90.40932655334473),
+                ],
+                routeWhileDragging: true
+            }).addTo(map);
+            });
+        });
+    }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {
-  margin: 40px 0 0;
+    margin: 40px 0 0;
 }
 ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 li {
-  display: inline-block;
-  margin: 0 10px;
+    display: inline-block;
+    margin: 0 10px;
 }
 a {
-  color: #42b983;
+    color: #42b983;
+}
+#hello {
+    width: 100%;
+    height: 480px;
 }
 </style>

@@ -1,0 +1,1 @@
+http://geodash.gov.bd:80/geoserver/wfs?format_options=charset%3AUTF-8&typename=geonode%3Adhaka_slum_area_2010&outputFormat=SHAPE-ZIP&version=1.0.0&service=WFS&request=GetFeature&access_token=0f096930f7a211e99cbf286ed488c993&srsName=EPSG%3A4326
