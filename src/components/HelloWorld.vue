@@ -214,22 +214,21 @@ a {
     text-align: center;
     border-radius: 5px;
     padding: 27px;
-    margin-bottom: 5vw;
+    margin-bottom: 3vw;
 }
 .none {display: none;}
 button.btn.btn-info {
     background-color:#44c767;
 	border-radius:8px;
 	border:1px solid #18ab29;
-	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
 	font-family:Arial;
-	font-size:17px;
-	padding:16px 31px;
+	font-size:14px;
+	padding:8px 18px;
 	text-decoration:none;
     margin: 0 auto;
     display: block;
-    margin-bottom: 5vw;
+    margin-bottom: 3vw;
 }
 </style>
