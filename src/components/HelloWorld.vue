@@ -206,7 +206,7 @@ a {
     width: 60vw;
     margin: 0 auto;
     margin-top: 5vw;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
     outline: none;
     height: 30px;
