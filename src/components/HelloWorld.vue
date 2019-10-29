@@ -1,10 +1,19 @@
 <template>
-    <div id="hello"></div>
+    <div class="container">
+        <input ref="autocomplete"
+        placeholder="Search"
+        class="search-location"
+        onfocus="value = ''"
+        type="text" />
+
+        <div id="hello"></div>
+    </div>
 </template>
 
 <script>
 import shp from "shpjs";
 import L from "leaflet";
+// import google from "google-maps";
 import data from "./data";
 import slum from "./slum.json";
 import 'leaflet-routing-machine';
@@ -14,6 +23,8 @@ export default {
     data: function() {
         return {
             s: "",
+            selected_lat: '',
+            selected_lng: '',
             mapData: {
                 type: "FeatureCollection",
                 features: [
@@ -101,6 +112,18 @@ export default {
             //         };
 			// 	}
             // }).addTo(mymap);
+            this.autocomplete = new google.maps.places.Autocomplete(
+                (this.$refs.autocomplete), {types: ['geocode']}
+            );
+            this.autocomplete.addListener('place_changed', () => {
+            let place = this.autocomplete.getPlace();
+            let ac = place.address_components;
+            this.selected_lat = place.geometry.location.lat();
+            this.selected_lng = place.geometry.location.lng();
+            let city = ac[0]["short_name"];
+
+            console.log(`The user picked ${city} with the coordinates ${lat}, ${lon}`);
+            });
             navigator.geolocation.getCurrentPosition(function(location) {
                 let lat = location.coords.latitude;
                 let lng = location.coords.longitude;
@@ -114,7 +137,7 @@ export default {
             L.Routing.control({
                 waypoints: [
                     L.latLng(lat,lng),
-                    L.latLng(23.754592574620776, 90.40932655334473),
+                    L.latLng(this.selected_lat, this.selected_lng),
                 ],
                 routeWhileDragging: true
             }).addTo(map);
@@ -143,5 +166,18 @@ a {
 #hello {
     width: 100%;
     height: 480px;
+}
+.search-location {
+  display: block;
+  width: 60vw;
+  margin: 0 auto;
+  margin-top: 5vw;
+  font-size: 20px;
+  font-weight: 400;
+  outline: none;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 10px;
 }
 </style>
