@@ -10,8 +10,10 @@
   "dependencies": {
     "core-js": "^3.3.2",
     "google-maps": "^3.3.0",
+    "jquery": "^3.4.1",
     "leaflet": "^1.5.1",
     "leaflet-routing-machine": "^3.2.12",
+    "places.js": "^1.17.0",
     "shpjs": "^3.4.3",
     "vue": "^2.6.10"
   },
